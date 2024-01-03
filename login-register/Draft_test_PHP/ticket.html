@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ticket Sale</title>
+  <style>
+    /* Some basic styling for demonstration purposes */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .ticket-form {
+      max-width: 400px;
+      margin: auto;
+      text-align: center; /* Center align the form */
+    }
+    .ticket-form label {
+      display: block;
+      margin-bottom: 10px;
+      text-align: left; /* Align labels to the left */
+    }
+    .ticket-form input[type="text"],
+    .ticket-form input[type="email"],
+    .ticket-form input[type="tel"], /* For mobile number */
+    .ticket-form select,
+    .ticket-form input[type="number"],
+    .ticket-form input[type="submit"] {
+      width: 100%; /* Set input fields to full width */
+      padding: 8px; /* Add padding for better appearance */
+      margin-bottom: 10px;
+      box-sizing: border-box; /* Include padding in input's total width */
+    }
+    .ticket-form input[type="submit"] {
+      padding: 8px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="ticket-form">
+    <h2>Get Your Ticket</h2>
+    <form action="purchase.html" method="POST" id="ticketForm">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" name="name" required>
+  
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+  
+      <label for="mobile">Mobile Number:</label>
+      <input type="tel" id="mobile" name="mobile"  placeholder="Enter 10-digit number" required>
+  
+      <label for="ticket-type">Ticket Type:</label>
+      <select id="ticket-type" name="ticket-type" onchange="calculatePrice()" required>
+        <option value="">Select a ticket type</option>
+        <option value="standard" data-price="50">Standard ($50)</option>
+        <option value="premium" data-price="100">Premium ($100)</option>
+        <option value="vip" data-price="200">VIP ($200)</option>
+      </select>
+  
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" name="quantity" min="1" onchange="calculatePrice()" required>
+  
+      <label for="total-price">Total Price:</label>
+      <input type="text" id="total-price" name="total-price" readonly>
+  
+      <input type="submit" value="Purchase Ticket">
+    </form>
+  </div>
+  
+
+  <script>
+    function calculatePrice() {
+      const ticketTypeSelect = document.getElementById("ticket-type");
+      const selectedOption = ticketTypeSelect.options[ticketTypeSelect.selectedIndex];
+      const ticketPrice = parseFloat(selectedOption.dataset.price);
+      const quantity = parseInt(document.getElementById("quantity").value);
+      const totalPrice = ticketPrice * quantity;
+
+      document.getElementById("total-price").value = totalPrice.toFixed(2);
+    }
+  </script>
+</body>
+</html>
